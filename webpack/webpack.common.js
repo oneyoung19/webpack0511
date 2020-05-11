@@ -62,6 +62,7 @@ module.exports = {
         title: '0511/webpack'
       }
     }),
+    // 另外，这里分离出来的css不会被压缩。如果想要压缩，需要使用插件optimize-css-assets-webpack-plugin
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
       chunkFilename: '[id].css'
