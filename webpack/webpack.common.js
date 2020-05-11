@@ -12,7 +12,26 @@ module.exports = {
       {
         test: /\.css$/,
         // 注意这里的先后顺序
-        use: ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(jpg|jpeg|png|gif)$/,
+        use: [
+          // 图片可以使用url-loader或者file-loader, 优先使用url-loader, 因为url-loader可以设置图片大小的limit, 来控制将图片是否转为dataURL。而file-loader不论大小，都将图片转为dataURL
+          {
+            loader: 'url-loader',
+            options: {
+              // 小于limit的话，会转为dataUrl, 此时需要安装file-loader
+              limit: 102400,
+              // 设置limit后，优化下name
+              name: '[name]_[hash:6].[ext]',
+              // 在支持esmodule的import的基础上，是否支持commonJs的require true(不支持，默认) false(支持)
+              esModule: false,
+              // 图片输出到dist文件夹的img目录下
+              outputPath: 'img'
+            },
+          }
+        ]
       }
     ]
   },
