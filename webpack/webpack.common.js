@@ -66,5 +66,15 @@ module.exports = {
       filename: 'css/[name].css',
       chunkFilename: '[id].css'
     })
-  ]
+  ],
+  resolve: {
+    // 默认情况下，import语句只会在node_modules中寻找。可通过该配置增加默认的寻找文件。（从左至右）
+    modules: [path.resolve(__dirname, '../src/components'), 'node_modules'],
+    // 别名
+    alias: {
+      '@': path.resolve(__dirname, '../src')
+    },
+    // 自动解析扩展名 顺序从左至右
+    extensions: ['.vue', '.js', '.json']
+  }
 }
