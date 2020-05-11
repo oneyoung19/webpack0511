@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   entry: path.resolve(__dirname, '../src/index.js'),
@@ -11,8 +12,17 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        // 注意这里的先后顺序
-        use: ['style-loader', 'css-loader'],
+        // 注意这里的先后顺序 MiniCssExtractPlugin.loader取代style-loader
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              // css 热更新
+              hmr: process.env.NODE_ENV === 'development'
+            }
+          },
+          'css-loader'
+        ],
       },
       {
         test: /\.(jpg|jpeg|png|gif)$/,
@@ -51,6 +61,10 @@ module.exports = {
       config: {
         title: '0511/webpack'
       }
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].css',
+      chunkFilename: '[id].css'
     })
   ]
 }

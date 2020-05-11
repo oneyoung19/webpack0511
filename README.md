@@ -15,4 +15,12 @@ yarn add webpack webpack-cli -D
 - style-loader css-loader
 
 `style-loader`将打包的`css`以`style`标签的形式，加载在头部
+
 `css-loader`解析`css`的`import`语法
+
+`mini-css-extract-plugin`将js文件的css抽离出来，形成一个单独的文件。另外该插件自带loader, 用于取代`style-loader`，而且该loader在开发环境能够进行css的热更新。要注意的是，使用该插件时，必须使用该插件的loader，不使用的话，分离css不会生效。
+
+- url-loader file-loader
+
+`file-loader`会将图片转为base64的格式，无论图片大小。而`url-loader`有个`limit`属性，可以控制图片的大小，以此来决定是否转为base64图片。开发中优先使用`url-loader`。因为不转base64，图片加载过程会产生额外的网络请求。统统转为base64,较大的图片会产生较高的性能消耗。
+
