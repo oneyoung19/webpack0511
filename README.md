@@ -24,3 +24,7 @@ yarn add webpack webpack-cli -D
 
 `file-loader`会将图片转为base64的格式，无论图片大小。而`url-loader`有个`limit`属性，可以控制图片的大小，以此来决定是否转为base64图片。开发中优先使用`url-loader`。因为不转base64，图片加载过程会产生额外的网络请求。统统转为base64,较大的图片会产生较高的性能消耗。
 
+- copy-webpack-plugin
+
+`copy-webpack-plugin`插件会将资源拷贝到指定目录。要注意的是，这里的拷贝，**内部不会再进行webpack的递归依赖处理**。而只是把文件拷贝。
+譬如js文件中，不能再用`import`、`require`等等这种模块化引入的代码。

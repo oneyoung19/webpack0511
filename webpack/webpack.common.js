@@ -1,12 +1,13 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: path.resolve(__dirname, '../src/index.js'),
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: '[name].[hash:8].js'
+    filename: 'js/[name].[hash:8].js'
   },
   module: {
     rules: [
@@ -66,7 +67,14 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
       chunkFilename: '[id].css'
-    })
+    }),
+    // 将静态资源拷贝
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../src/assets/js/'),
+        to: path.resolve(__dirname, '../dist/js')
+      }
+    ])
   ],
   resolve: {
     // 默认情况下，import语句只会在node_modules中寻找。可通过该配置增加默认的寻找文件。（从左至右）
